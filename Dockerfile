@@ -1,5 +1,4 @@
-FROM python:3.9.10-slim
-LABEL maintainer "https://gzupark.dev"
+FROM python:3.10-slim
 
 RUN apt-get -qq update && \
     apt-get -y install wget gnupg && \
