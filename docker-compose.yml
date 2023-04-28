@@ -5,7 +5,11 @@ services:
       context: .
       dockerfile: Dockerfile
     image: nginx-streamlit
+    ports:
+      - '8888:8888'
+    expose:
+      - '8888'
 
 networks:
   default:
-    name: iot-network
+    name: exp-network

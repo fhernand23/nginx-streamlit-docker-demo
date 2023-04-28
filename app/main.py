@@ -11,7 +11,7 @@ def write_todo_list(todos: List) -> None:
     all_done = True
     for i, todo in enumerate(todos):
         col1, col2, _ = st.columns([0.05, 0.8, 0.15])
-        done = col1.checkbox("", todo["done"], key=str(i))
+        done = col1.checkbox(label="", value=todo["done"], key=str(i), label_visibility='hidden')
         if done:
             format_str = (
                 '<span style="color: grey; text-decoration: line-through;">{}</span>'
@@ -45,10 +45,14 @@ def main() -> None:
             {
                 "description": "Read the [blog post about session state](https://blog.streamlit.io/session-state-for-streamlit/)",
                 "done": True,
+                "label": "Some Label",
+                "label_visibility": False
             },
             {
                 "description": "Read my [blog](https://gzupark.dev)",
                 "done": False,
+                "label": "Some Label",
+                "label_visibility": False
             },
         ]
 
@@ -59,6 +63,8 @@ def main() -> None:
                 {
                     "description": st.session_state.new_todo,
                     "done": False,
+                    "label": "Some Label",
+                    "label_visibility": False
                 }
             )
 

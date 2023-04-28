@@ -15,6 +15,8 @@ RUN python -m pip install --no-cache-dir -r requirements.txt
 RUN useradd -m -u 2022 -d /home/streamlitapp streamlitapp
 RUN chown -R streamlitapp /var/log/nginx /var/lib/nginx
 
+# Custom cache invalidation
+ARG CACHEBUST=1
 # Config and exec files
 COPY --chown=streamlitapp ./config/nginx.conf /home/streamlitapp/.nginx/nginx.conf
 COPY --chown=streamlitapp ./config/config.toml /home/streamlitapp/.streamlit/config.toml
