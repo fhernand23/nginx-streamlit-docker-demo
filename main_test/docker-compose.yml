@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:stable
+    volumes:
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d
+      - ./web/html:/usr/share/nginx/html
+    ports:
+      - 80:80
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+networks:
+  default:
+    name: duck-test-network
