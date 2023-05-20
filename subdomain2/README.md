@@ -5,20 +5,10 @@ Microservice helps to operate each service independently that is why we use sepa
 
 In this repository, I will make a demo for proxy server with streamlit application. The application exposes their service through port number `2022`, and Nginx server exposes to the port number `8888` in the demo. Then, you can see Streamlit application with `localhost:8888` in your webbrowser. Of course, it is possible to run the application with `localhost:2022` due to the fact that I did not set any blocking other port numbers in Nginx configuration.
 
-## Dev env local
-
-### create env
-```bash
-python3.10 -m venv venv
-. ./venv/bin/activate
-pip install -r requirements.txt
-```
-
 ### run app dev mode
 ```bash
-cd subdomain1/app
-streamlit run app1.py --server.port 8501 --server.baseUrlPath /app1
-streamlit run app2.py --server.port 8502 --server.baseUrlPath /app2
+cd subdomain2/app
+streamlit run app3.py --server.port 8503 --server.baseUrlPath /app3
 ```
 
 ## Demo
