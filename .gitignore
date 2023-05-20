@@ -337,3 +337,5 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,linux,python,visualstudiocode,pycharm
+main_domain/data/certbot/conf/ssl-dhparams.pem
+main_domain/data/certbot/conf/options-ssl-nginx.conf
