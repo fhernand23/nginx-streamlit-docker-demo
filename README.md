@@ -1,18 +1,51 @@
 # Complex NGINX microservices apps
 
-Configure multiple streamlit apps in domain & subdomains using NGINX, DuckDNS, Letsencrypt & Certbot
+Configure multiple streamlit apps in domain & subdomains using NGINX
 
-- main_domain (loshz.duckdns.org)
+- main_test (localhost)
+- subdomain1 (app1.localhost)
+- subdomain2 (app2.localhost)
 
-- subdomain1 (app1.loshz.duckdns.org)
+## Common Python env
 
-- subdomain2 (app2.loshz.duckdns.org)
+Set a common python env for all streamlit apps for simplicity purpose.
+```bash
+python3.10 -m venv venv
+. ./venv/bin/activate
+pip install -r requirements.txt
+```
 
-This work is based on this documents:
-- `https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a7`
+## Config
 
+Open /etc/hosts and add entries `localhost`, `app1.localhost`, `app1.localhost` pointing to `127.0.0.1`
 
-## Step 1: configure main_domain
+## Start
+
+1. Run subdomain1
+```bash
+cd ./subdomain1
+docker compose build
+docker compose up
+```
+2. Run subdomain2
+```bash
+cd ./subdomain2
+docker compose build
+docker compose up
+```
+3. Run main
+```bash
+cd ./main_test
+docker compose build
+docker compose up
+```
+4. Access to `localhost`
+
+## further work
+
+Add DuckDNS, Letsencrypt & Certbot
+
+### Work in progress
 
 1. Add main domain in duckdns.org and get duckdns key
 2. Create `/main_domain/.env` with appropiate values (based on `dotenv` sample)
@@ -27,13 +60,3 @@ curl -L https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsen
 chmod +x ./init-letsencrypt.sh
 ./init-letsencrypt.sh
 ```
-
-## Common Python env
-
-Set a common python env for all streamlit apps for simplicity purpose
-```bash
-python3.10 -m venv venv
-. ./venv/bin/activate
-pip install -r requirements.txt
-```
-

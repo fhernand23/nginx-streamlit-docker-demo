@@ -18,7 +18,7 @@ RUN chown -R streamlitapp /var/log/nginx /var/lib/nginx
 # Custom cache invalidation
 ARG CACHEBUST=1
 # Config and exec files
-COPY --chown=streamlitapp ./config/nginx.conf.app2 /home/streamlitapp/.nginx/nginx.conf
+COPY --chown=streamlitapp ./config/nginx.conf.app3 /home/streamlitapp/.nginx/nginx.conf
 COPY --chown=streamlitapp ./bin /home/streamlitapp/bin/
 COPY --chown=streamlitapp ./app /home/streamlitapp/app/
 
@@ -32,4 +32,4 @@ USER streamlitapp
 RUN ["chmod", "+x", "/home/streamlitapp/bin/start-nginx.sh"]
 ENTRYPOINT ["/home/streamlitapp/bin/start-nginx.sh"]
 
-CMD ["streamlit", "run", "app2.py", "--server.port", "8502", "--server.enableCORS", "false", "--server.baseUrlPath", "/app2"]
+CMD ["streamlit", "run", "app3.py", "--server.port", "8503", "--server.enableCORS", "false", "--server.baseUrlPath", "/app3"]
