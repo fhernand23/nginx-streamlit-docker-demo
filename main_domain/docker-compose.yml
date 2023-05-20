@@ -1,15 +1,39 @@
-version: '3.3'
+version: '3.8'
 services:
-  nginx-streamlit:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: nginx-streamlit
+  duckdns:
+    image: lscr.io/linuxserver/duckdns:latest
+    container_name: duckdns
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      SUBDOMAINS: ${SUBDOMAINS}
+      TOKEN: ${TOKEN}
+      LOG_FILE: "false"
+    volumes:
+      - ./conf/duckdns/config:/config
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:stable
+    volumes:
+      - ./conf/nginx/conf.d:/etc/nginx/conf.d
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+      - ./web/html:/usr/share/nginx/html
     ports:
-      - '8888:8888'
-    expose:
-      - '8888'
+      - 80:80
+      - 443:443
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  certbot:
+    image: certbot/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+      - ./data/certbot/log:/var/log
 
 networks:
   default:
-    name: exp-network
+    name: duck-network
