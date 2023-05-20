@@ -8,7 +8,7 @@ In this repository, I will make a demo for proxy server with streamlit applicati
 ### run app dev mode
 ```bash
 cd subdomain2/app
-streamlit run app3.py --server.port 8503 --server.baseUrlPath /app3
+streamlit run app3.py --server.port 8503 --server.address 0.0.0.0 --server.enableCORS false --server.enableXsrfProtection false --server.baseUrlPath /app3
 ```
 
 ## Demo
